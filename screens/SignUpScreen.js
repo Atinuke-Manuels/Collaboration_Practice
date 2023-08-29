@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, TextInput } from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
+import { useNavigation } from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('screen');
 
 const SignUpScreen = () => {
+
+    const navigation = useNavigation;
     
   return (
     <SafeAreaView style={tw`bg-red-300 h-full`}>
