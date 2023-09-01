@@ -3,13 +3,16 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignUpScreen from '../screens/SignUpScreen';
 import LoginScreen from '../screens/LoginScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 const StackScreen = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator screenOptions={{headerShown:false}}>
+    <Stack.Navigator 
+    screenOptions={{headerShown:false}}>
       <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
       <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+      <Stack.Screen name="Home Screen" component={HomeScreen}/>
     </Stack.Navigator>
   )
 }

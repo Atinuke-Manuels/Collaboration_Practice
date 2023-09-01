@@ -7,7 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 const {width, height} = Dimensions.get('screen');
 
 const SignUpScreen = () => {
-    const navigation = useNavigation('');
+    // const navigation = useNavigation('');
+
+    const navigation = useNavigation;
+    
   return (
     <SafeAreaView style={tw`bg-red-300 h-full`}>
      
