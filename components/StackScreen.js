@@ -10,7 +10,7 @@ const StackScreen = () => {
   return (
     <Stack.Navigator 
     screenOptions={{headerShown:false}}>
-      {/* <Stack.Screen name="SignUpScreen" component={SignUpScreen}/> */}
+      <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
       <Stack.Screen name="Home Screen" component={HomeScreen}/>
       <Stack.Screen name="Options" component={Options}/>
     </Stack.Navigator>
