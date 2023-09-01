@@ -3,14 +3,16 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
+import Options from '../screens/Options/Options';
 
 const StackScreen = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator 
     screenOptions={{headerShown:false}}>
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen}/>
+      {/* <Stack.Screen name="SignUpScreen" component={SignUpScreen}/> */}
       <Stack.Screen name="Home Screen" component={HomeScreen}/>
+      <Stack.Screen name="Options" component={Options}/>
     </Stack.Navigator>
   )
 }

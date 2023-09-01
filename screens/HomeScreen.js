@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import tw from 'tailwind-react-native-classnames';
+import Color from '../assets/Color';
+import Back from './Options/Back';
+import Next from './Options/Next';
 
 const HomeScreen = () => {
   const [randomImage, setRandomImage] = useState('');
@@ -70,9 +73,13 @@ const HomeScreen = () => {
       <View style={[tw`h-1/2 items-center justify-center`, styles.randomView]}>
         <Text style={styles.randomTxt}>{randomText}</Text>
       </View>
-    <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("SignUpScreen")}>
-        <Text style={styles.backText}>Back</Text>
-      </TouchableOpacity>
+          <Back
+            onPress={() => navigation.navigate("SignUpScreen")}
+          />
+    <Next
+      onPress={() => navigation.navigate("Options")}
+      label={"Next"}    
+    />
     </SafeAreaView>
   );
 }
@@ -82,19 +89,19 @@ const styles = StyleSheet.create({
     position: 'relative'
     },
     randomView: {
-    backgroundColor: 'yellow',
+    backgroundColor: Color.yellow,
     paddingHorizontal: 12,
     position: 'relative'
   },
   randomTxt: {
     fontSize: 24,
-    color: 'red'
+    color: Color.red,
   },
   backButton: {
     position: 'absolute',
     top: 40,
-    right: 25,
-    backgroundColor: 'white',
+    left: 15,
+    backgroundColor: Color.white,
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5
