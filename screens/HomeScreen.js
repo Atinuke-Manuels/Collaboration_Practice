@@ -71,7 +71,7 @@ const HomeScreen = () => {
         <Text style={styles.randomTxt}>{randomText}</Text>
       </View>
     <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("SignUpScreen")}>
-        <Text style={styles.backText}>Back</Text>
+        <Text style={styles.backText}>Back </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -7,14 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 const {width, height} = Dimensions.get('screen');
 
 const SignUpScreen = () => {
-    // const navigation = useNavigation('');
+      const navigation = useNavigation('');
 
-    const navigation = useNavigation;
+    // const navigation = useNavigation;
     
   return (
     <SafeAreaView style={tw`bg-red-300 h-full`}>
      
-      <Text style={[tw`text-blue-600 text-center p-10`, styles.text]}>Smart~Intern</Text>
+      <Text style={[tw`text-blue-600 text-center p-10`, styles.text]}>Smart~Tech~Intern</Text>
 
       <View style={styles.container}>
             <View style={{alignItems: 'center', marginTop:10}}>
@@ -114,7 +114,8 @@ const SignUpScreen = () => {
                              You may receive SMS notifications from us and can opt out at any time.
                       </Text>
 
-                      <TouchableOpacity style={[tw`bg-blue-400`,styles.sign]}>
+                      <TouchableOpacity style={[tw`bg-blue-400`,styles.sign]}
+                                         onPress={() => navigation.navigate("HomeScreen")}>
                             <Text style={{fontFamily:"Roboto-Bold", fontSize:20, color:"white"}}>Sign Up </Text>
                       </TouchableOpacity>
 
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF', 
         alignSelf: 'center', 
         borderRadius: 10, 
-        marginTop: -35
+        marginTop: -30
     },
     dob:{
         height: height*0.05,
@@ -221,6 +222,6 @@ const styles = StyleSheet.create({
       },
     text:{
         fontFamily: 'Roboto-Bold',
-        fontSize:35
+        fontSize:28
     }
 })
