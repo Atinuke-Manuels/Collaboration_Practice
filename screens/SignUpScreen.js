@@ -3,11 +3,40 @@ import React from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 const {width, height} = Dimensions.get('screen');
 
 const SignUpScreen = () => {
-      const navigation = useNavigation('');
+  const [text, onChangeText] = useState('');
+  const [sName, setSname] = useState('');
+  const [number, onChangeNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [reenterPassword, setReenterPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordAgain, setShowPasswordAgain] = useState(false);
+  const [focusedInput, setFocusedInput] = useState(null)
+  const [isFemaleChecked, setIsFemaleChecked] = useState(false);
+  const [isMaleChecked, setIsMaleChecked] = useState(false);
+  const navigation = useNavigation('');
+
+  function handleFocus(inputName){
+    setFocusedInput(inputName);
+  }
+
+  const toggleFemaleCheckbox = () => {
+    setIsFemaleChecked(!isFemaleChecked);
+    setIsMaleChecked(false); // Uncheck male when female is checked
+  };
+
+  const toggleMaleCheckbox = () => {
+    setIsMaleChecked(!isMaleChecked);
+    setIsFemaleChecked(false); // Uncheck female when male is checked
+  };
+  // function handleBlur(){
+  //   setFocusedInput(null);
+  // }
 
     // const navigation = useNavigation;
     
@@ -25,86 +54,154 @@ const SignUpScreen = () => {
 
             <View style={{flexDirection: 'row' , alignSelf:"center"}}>
             <TextInput
-                style={styles.input}
+                style={[styles.input,
+                 {
+                   backgroundColor: focusedInput === 'First Name' ? '#1B4079' : 'transparent',
+                 }
+                ]}
                 placeholder="First Name"
                 placeholderTextColor={'#747572'}
-            
-            
+                onChangeText={onChangeText}
+                onFocus={() => handleFocus('First Name')}
+                // onBlur={handleBlur}
+                value={text}          
             />
 
             <TextInput
-                style={styles.input}
+                style={[styles.input,
+                {
+                  backgroundColor: focusedInput === 'Surname' ? '#1B4079' : 'transparent',
+                }
+                ]}
                 placeholder="Surname"
-            
+                placeholderTextColor={'#747572'}
+                onChangeText={setSname}
+                onFocus={() => handleFocus('Surname')}
+                value={sName}           
             
             />
            </View>
            <TextInput
-                style={styles.input2}
+                style={[styles.input2,
+                  {
+                  backgroundColor: focusedInput === "Mobile Number" ? '#1B4079' : 'transparent',
+                  }
+                ]}
                 placeholder="Mobile Number"
+                onChangeText={onChangeNumber}
+                onFocus={() => handleFocus('Mobile Number')}
+                // onBlur={handleBlur}
+                value={number}
                 keyboardType="numeric"
             
             
             />
             <TextInput
-                style={styles.input2}
+                style={[styles.input2,
+                {
+                  backgroundColor: focusedInput === "Email Address" ? '#1B4079' : 'transparent',
+                }
+              ]}
                 placeholder="Email Address"
+                onChangeText={setEmail}
+                onFocus={() => handleFocus('Email Address')}
                 keyboardType="email-address"
+                value={email}
             
             
                 /> 
-            <View style={{flexDirection: 'row' , alignSelf:"center", marginBottom: 10}}>
+            {/* <View style={{flexDirection: 'row' , alignSelf:"center", marginBottom: 10}}> */}
                 <TextInput
-                style={styles.input}
+                style={[styles.input2,
+                {
+                  backgroundColor: focusedInput === "New Password" ? '#1B4079' : 'transparent',
+                }
+              ]}
                 placeholder="New Password"
-                secureTextEntry={true}
-            
-            
+                onChangeText={setNewPassword}
+                onFocus={() => handleFocus('New Password')}
+                secureTextEntry={!showPassword}
+                value={newPassword}            
             />
-            <TextInput
-                    style={styles.input}
-                    placeholder="Re-enter Password"
-                    secureTextEntry={true}
-                
-                
+                  <TouchableOpacity onPress={() => setShowPassword(!showPassword)}> 
+                        <Image
+                          source={
+                            showPassword
+                              ? require('../assets/images/signup/visible.png')
+                              : require('../assets/images/signup/hide.png')
+                            }
+                            style={{ width: 20, height: 20, position: 'absolute', left: 300, top: -30 }}
+                              />
+                  </TouchableOpacity>
+              <TextInput
+                      style={[styles.input2,
+                        {
+                          backgroundColor: focusedInput === "Re-enter Password" ? '#1B4079' : 'transparent',
+                        }
+                      ]}
+                      placeholder="Re-enter Password"
+                      onChangeText={setReenterPassword}
+                      onFocus={() => handleFocus('Re-enter Password')}
+                      secureTextEntry={!showPasswordAgain}
+                      value={reenterPassword}
                 />
-                </View>
 
-            <Text style={{fontFamily:"Roboto-Medium", fontSize:14,color:'#747572' , marginLeft:10}}>Date of Birth</Text>
+
+                          <TouchableOpacity onPress={() => setShowPasswordAgain(!showPasswordAgain)}> 
+                            <Image
+                              source={
+                                showPasswordAgain
+                                  ? require('../assets/images/signup/visible.png')
+                                  : require('../assets/images/signup/hide.png')
+                                }
+                                  style={{ width: 20, height: 20, position: 'absolute', left: 300, top: -30 }}
+                                  />
+                      </TouchableOpacity>
+                {/* </View> */}
+
+            <Text style={{fontFamily:"Roboto-Medium", fontSize:14,color:'#747572' , marginLeft:15}}>Date of Birth</Text>
 
             <View style={{flexDirection: 'row' , alignSelf:"center", marginTop:5}}>
-                <View style={styles.dob}>
+                <TouchableOpacity style={styles.dob}>
                     <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Day </Text>
                     <Image source={require('../assets/images/down-arrow.png')}
                             style={{width:width*0.04, height:height*0.04, marginLeft:40}}
                     />
-                </View>
-                <View style={styles.dob}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.dob}>
                     <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Month </Text>
                     <Image source={require('../assets/images/down-arrow.png')}
                             style={{width:width*0.04, height:height*0.04, marginLeft:20}}
                     />
-                </View>
-                <View style={styles.dob}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.dob}>
                     <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Year </Text>
                     <Image source={require('../assets/images/down-arrow.png')}
                             style={{width:width*0.04, height:height*0.04, marginLeft:30}}
                     />
-                </View>
+                </TouchableOpacity>
           
                 </View>
 
-                <Text style={{fontFamily:"Roboto-Medium", fontSize:14,color:'#747572' , marginLeft:10, marginTop:10}}>Gender </Text>
+                <Text style={{fontFamily:"Roboto-Medium", fontSize:14,color:'#747572' , marginLeft:15, marginTop:5}}>Gender </Text>
 
                   <View style={{flexDirection: 'row' , alignSelf:"center", marginTop:-7}}>
                         <View style={styles.input3}>
                                 <Text style={{fontFamily:"Roboto-Regular", }}>Female </Text>
-                                <View style={{width:width*0.065, height:height*0.03, borderWidth:1, borderRadius:50, marginLeft:50, marginTop:-3}}/>
+                                <TouchableOpacity style={[
+                                  styles.checkbox1, 
+                                  isFemaleChecked && { backgroundColor: '#1B4079' },
+                                ]}
+                                onPress={toggleFemaleCheckbox}></TouchableOpacity>
                               
                             </View>
                             <View style={styles.input3}>
                                 <Text style={{fontFamily:"Roboto-Regular", }}>Male </Text>
-                                <View style={{width:width*0.065, height:height*0.03, borderWidth:1, borderRadius:50, marginLeft:70, marginTop:-3}}/>
+                                <TouchableOpacity style={[
+                                  styles.checkbox, 
+                                  isMaleChecked && { backgroundColor: '#1B4079' },
+                                ]}
+                                onPress={toggleMaleCheckbox}></TouchableOpacity>
                               
                             </View>
                   </View>
@@ -147,6 +244,22 @@ const styles = StyleSheet.create({
         alignSelf: 'center', 
         borderRadius: 10, 
         marginTop: -30
+    },
+    checkbox:{
+      width:width*0.065,
+      height:height*0.03, 
+      borderWidth:1,
+      borderRadius:50, 
+      marginLeft:70, 
+      marginTop:-3
+    },
+    checkbox1:{
+      width:width*0.065,
+      height:height*0.03, 
+      borderWidth:1,
+      borderRadius:50, 
+      marginLeft:55, 
+      marginTop:-3
     },
     dob:{
         height: height*0.05,

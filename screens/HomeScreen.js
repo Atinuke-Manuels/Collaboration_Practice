@@ -81,7 +81,7 @@ const HomeScreen = () => {
           />
     <Next
       onPress={() => navigation.navigate("Options")}
-      label={"Next"}    
+      label={"Next" }    
     />
     </SafeAreaView>
   );
