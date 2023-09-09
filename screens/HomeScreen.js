@@ -73,12 +73,15 @@ const HomeScreen = () => {
       <View style={[tw`h-1/2 items-center justify-center`, styles.randomView]}>
         <Text style={styles.randomTxt}>{randomText}</Text>
       </View>
+    <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("SignUpScreen")}>
+        <Text style={styles.backText}>Back </Text>
+      </TouchableOpacity>
           <Back
             onPress={() => navigation.navigate("SignUpScreen")}
           />
     <Next
       onPress={() => navigation.navigate("Options")}
-      label={"Next"}    
+      label={"Next" }    
     />
     </SafeAreaView>
   );

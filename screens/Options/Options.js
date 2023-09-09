@@ -12,7 +12,7 @@ const Options = () => {
   return (
     <SafeAreaView style={{flex: 1, display: 'flex', flexDirection: 'row', gap: 5, flexWrap: 'wrap', marginHorizontal: 8, marginVertical: 12, width: width, height: height}}>
       <OptionsComponent
-        label={"Need a \n volunteer?"}
+        label={"Need a \n volunteer?" }
         color={Color.white}
         fontSize={28}
         textAlign={"center"}
