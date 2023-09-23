@@ -10,7 +10,7 @@ const Back = ({onPress}) => {
   )
 }
 
-module.exports = Back;
+export default Back;
 
 
 const styles = StyleSheet.create({
