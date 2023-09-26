@@ -5,6 +5,14 @@ import useMathCounter from "use-math-counter";
 
 const NumberScreen = () => {
     const customHook = useMathCounter (0);
+    
+    const decrementValue = () =>{
+      if (customHook.value > 0){
+        customHook.decrement(1)
+      }
+    }
+
+    
     // const [count, setCount] = useState(1)
 
     // const incrementCount = () => {
@@ -17,19 +25,16 @@ const NumberScreen = () => {
     //    }
     // }
 
-          if (customHook.value > 0) {
-        customHook.decrement(customHook.value - 1)
-       }
   return (
     <SafeAreaView style ={{flex:1, justifyContent:"center", alignItems:"center"}}>
         <View style ={{flexDirection:"row"}}>
-            <TouchableOpacity onPress={() => customHook.decrement (1)}> 
+            <TouchableOpacity onPress={decrementValue} style={{borderWidth:5, width:50, alignItems:"center", backgroundColor:'green', borderColor:"green"}}> 
                  <Image source={require("../assets/images/minus.png")} style={{width:20, height:20}}/>
             </TouchableOpacity>
             <Text style={{marginRight:15, marginLeft:15}}> {customHook.value} </Text>
 
-            <TouchableOpacity onPress={() => customHook.increment(1)}>
-                 <Image source={require("../assets/images/plus.png")} style={{width:20, height:20}}/>
+            <TouchableOpacity onPress={() => customHook.increment(1)} style={{borderWidth:5, width:50, alignItems:"center", backgroundColor:'yellow', borderColor:"yellow", justifyContent:"center"}}>
+                 <Image source={require("../assets/images/plus.png")} style={{width:20, height:15}}/>
             </TouchableOpacity>
         </View>
         {/* <div>
