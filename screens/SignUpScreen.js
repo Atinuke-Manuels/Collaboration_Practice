@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions, TextInput } from 'react-native';
+import { StyleSheet, Text, FlatList, View, Image, SafeAreaView, Dimensions, TextInput } from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { TouchableOpacity } from 'react-native';
@@ -6,6 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
 const {width, height} = Dimensions.get('screen');
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+  'October', 'November', 'December'
+]
 
 const SignUpScreen = () => {
   const [text, onChangeText] = useState('');
@@ -19,6 +23,10 @@ const SignUpScreen = () => {
   const [focusedInput, setFocusedInput] = useState(null)
   const [isFemaleChecked, setIsFemaleChecked] = useState(false);
   const [isMaleChecked, setIsMaleChecked] = useState(false);
+  const [isMonthVisible, setIsMonthVisible] = useState(false)
+  const [isDayVisible, setIsDayVisible] = useState(false)
+  const [isYearVisible, setIsYearVisible] = useState(false)
+
   const navigation = useNavigation('');
 
   function handleFocus(inputName){
@@ -34,6 +42,12 @@ const SignUpScreen = () => {
     setIsMaleChecked(!isMaleChecked);
     setIsFemaleChecked(false); // Uncheck female when male is checked
   };
+
+  const toggleMonthVisibility = () => {
+    setIsMonthVisible(!isMonthVisible);
+    setIsDayVisible(false);
+    setIsYearVisible(false);
+  }
   // function handleBlur(){
   //   setFocusedInput(null);
   // }
@@ -168,12 +182,29 @@ const SignUpScreen = () => {
                             style={{width:width*0.04, height:height*0.04, marginLeft:40}}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.dob}>
+                
+                <TouchableOpacity style={styles.dob} onPress = {toggleMonthVisibility}>
                     <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Month </Text>
                     <Image source={require('../assets/images/down-arrow.png')}
                             style={{width:width*0.04, height:height*0.04, marginLeft:20}}
                     />
                 </TouchableOpacity>
+                
+                {/* // display month options */}
+                {isMonthVisible && (
+                  <View style={styles.optionsContainer}>
+                    <FlatList
+                      data={months}
+                      keyExtractor={(item, index) => index.toString()}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity style={styles.optionItem}>
+                          <Text>{item}</Text>
+                        </TouchableOpacity>
+                      )}
+                    />
+                </View>
+                )}
+
                 <TouchableOpacity style={styles.dob}>
                     <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Year </Text>
                     <Image source={require('../assets/images/down-arrow.png')}
@@ -336,5 +367,20 @@ const styles = StyleSheet.create({
     text:{
         fontFamily: 'Roboto-Bold',
         fontSize:28
-    }
+    },
+    optionsContainer: {
+      marginTop: 5,
+      borderWidth: 1,
+      borderColor: '#747572',
+      borderRadius: 4,
+      // position:"relative",
+      // top:-500,
+      // left:-100
+
+    },
+    optionItem: {
+      padding: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#747572',
+    },
 })

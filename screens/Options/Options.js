@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import OptionsComponent from './OptionsComponent'
 import Color from '../../assets/Color'
 import Back from './Back';
+
 const {width, height} = Dimensions.get('screen');
 
 const Options = () => {
@@ -25,7 +26,7 @@ const Options = () => {
         fontSize={28}
         textAlign={"center"}
         backgroundColor={Color.red}
-        onPress={()=> navigation.navigate("")}
+        onPress={()=> navigation.navigate("NumberScreen")}
       />
     <OptionsComponent
         label={"SignUp \n as an \n Intern."}
