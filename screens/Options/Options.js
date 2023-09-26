@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import OptionsComponent from './OptionsComponent'
 import Color from '../../assets/Color'
 import Back from './Back';
+import Next from './Next';
+import NumberScreen from '../NumberScreen';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -21,7 +23,7 @@ const Options = () => {
         onPress={()=> navigation.navigate("")}
       />
       <OptionsComponent
-        label={"Hire an \nIntern"}
+        label={"Hire an \n Intern"}
         color={Color.white}
         fontSize={28}
         textAlign={"center"}
@@ -45,8 +47,12 @@ const Options = () => {
         onPress={()=> navigation.navigate("")}
       />
       <Back
-        onPress={() => navigation.navigate("Home Screen")}
+        onPress={() => navigation.navigate("HomeScreen")}
       />
+      <Next
+      onPress={() => navigation.navigate("Counter")}
+      label={"Next" }    
+    />
     </SafeAreaView>
   )
 }
