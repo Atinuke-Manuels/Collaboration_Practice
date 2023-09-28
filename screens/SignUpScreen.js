@@ -1,4 +1,4 @@
-import { StyleSheet, Text, FlatList, View, Image, SafeAreaView, Dimensions, TextInput } from 'react-native';
+import { StyleSheet, Text, FlatList, View, Image, SafeAreaView, Dimensions, TextInput, ScrollView} from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { TouchableOpacity } from 'react-native';
@@ -10,6 +10,8 @@ const months = [
   'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
   'October', 'November', 'December'
 ]
+
+const days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', ]
 
 const SignUpScreen = () => {
   const [text, onChangeText] = useState('');
@@ -23,9 +25,11 @@ const SignUpScreen = () => {
   const [focusedInput, setFocusedInput] = useState(null)
   const [isFemaleChecked, setIsFemaleChecked] = useState(false);
   const [isMaleChecked, setIsMaleChecked] = useState(false);
-  const [isMonthVisible, setIsMonthVisible] = useState(false)
-  const [isDayVisible, setIsDayVisible] = useState(false)
-  const [isYearVisible, setIsYearVisible] = useState(false)
+  const [isMonthButton, setIsMonthButton] = useState(false)
+  const [isDayButton, setIsDayButton] = useState(false)
+  const [isYearButton, setIsYearButton] = useState(false)
+  const [selectDay, setSelectDay] = useState("Day");
+  const [isDayButtonVisible, setIsDayButtonVisible] = useState(false);
 
   const navigation = useNavigation('');
 
@@ -43,11 +47,23 @@ const SignUpScreen = () => {
     setIsFemaleChecked(false); // Uncheck female when male is checked
   };
 
-  const toggleMonthVisibility = () => {
-    setIsMonthVisible(!isMonthVisible);
-    setIsDayVisible(false);
-    setIsYearVisible(false);
+  const handleArrowChange = (buttonType) => {
+    switch (buttonType) {
+      case 'isDayButtonVisible' :
+        setIsDayButtonVisible(!isDayButtonVisible);
+        break;
+    }
+  };
+  const handleDaySelection = (day) => {
+    setSelectDay(day);
+    setIsDayButtonVisible(false)
   }
+
+  // const toggleMonthVisibility = () => {
+  //   setIsMonthVisible(!isMonthVisible);
+  //   setIsDayVisible(false);
+  //   setIsYearVisible(false);
+  // }
   // function handleBlur(){
   //   setFocusedInput(null);
   // }
@@ -55,7 +71,9 @@ const SignUpScreen = () => {
     // const navigation = useNavigation;
     
   return (
+   
     <SafeAreaView style={tw`bg-red-300 h-full`}>
+      
      
       <Text style={[tw`text-blue-600 text-center p-10`, styles.text]}>Smart~Tech~Intern</Text>
 
@@ -147,6 +165,7 @@ const SignUpScreen = () => {
                             style={{ width: 20, height: 20, position: 'absolute', left: 300, top: -30 }}
                               />
                   </TouchableOpacity>
+                 
               <TextInput
                       style={[styles.input2,
                         {
@@ -159,7 +178,7 @@ const SignUpScreen = () => {
                       secureTextEntry={!showPasswordAgain}
                       value={reenterPassword}
                 />
-
+ 
 
                           <TouchableOpacity onPress={() => setShowPasswordAgain(!showPasswordAgain)}> 
                             <Image
@@ -173,38 +192,51 @@ const SignUpScreen = () => {
                       </TouchableOpacity>
                 {/* </View> */}
 
+              
+              
             <Text style={{fontFamily:"Roboto-Medium", fontSize:14,color:'#747572' , marginLeft:15}}>Date of Birth</Text>
-
+         
+           
+              <View style={{ width:width*0.3,}}>
+                {isDayButtonVisible ? (
+                    <FlatList
+                      data={days}
+                      keyExtractor={(item) => item}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => handleDaySelection(item)}>
+                          <Text style={{marginLeft:10, 
+                            height: height*0.05,
+                            borderWidth:0.4, 
+                            borderRadius:4,
+                            paddingTop:10,
+                            paddingLeft:40,}}>{item}</Text>
+                           </TouchableOpacity>
+                      )}
+                    />
+                 
+                  ) : null}
+               </View>
+            
             <View style={{flexDirection: 'row' , alignSelf:"center", marginTop:5}}>
-                <TouchableOpacity style={styles.dob}>
-                    <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Day </Text>
-                    <Image source={require('../assets/images/down-arrow.png')}
-                            style={{width:width*0.04, height:height*0.04, marginLeft:40}}
+                <TouchableOpacity style={styles.dob} onPress={() => handleArrowChange('isDayButtonVisible')}>
+                    <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}> {selectDay} </Text>
+                    <Image
+                     source={isDayButtonVisible ? require( '../assets/images/arrow-up.png') :  require('../assets/images/down-arrow.png')}
+                            style={{width:width*0.04, height:height*0.04, marginLeft:30}}
                     />
                 </TouchableOpacity>
+
+          
+                  
                 
-                <TouchableOpacity style={styles.dob} onPress = {toggleMonthVisibility}>
+                <TouchableOpacity style={styles.dob}>
                     <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Month </Text>
                     <Image source={require('../assets/images/down-arrow.png')}
                             style={{width:width*0.04, height:height*0.04, marginLeft:20}}
                     />
                 </TouchableOpacity>
                 
-                {/* // display month options */}
-                {isMonthVisible && (
-                  <View style={styles.optionsContainer}>
-                    <FlatList
-                      data={months}
-                      keyExtractor={(item, index) => index.toString()}
-                      renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.optionItem}>
-                          <Text>{item}</Text>
-                        </TouchableOpacity>
-                      )}
-                    />
-                </View>
-                )}
-
+      
                 <TouchableOpacity style={styles.dob}>
                     <Text style={{fontFamily:"Roboto-Regular", marginLeft:10}}>Year </Text>
                     <Image source={require('../assets/images/down-arrow.png')}
@@ -213,6 +245,7 @@ const SignUpScreen = () => {
                 </TouchableOpacity>
           
                 </View>
+              
 
                 <Text style={{fontFamily:"Roboto-Medium", fontSize:14,color:'#747572' , marginLeft:15, marginTop:5}}>Gender </Text>
 
@@ -259,9 +292,12 @@ const SignUpScreen = () => {
                   </View>
 
 
-
+        
        </View>
+        
+  
     </SafeAreaView>
+   
   )
 }
 

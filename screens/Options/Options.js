@@ -5,7 +5,7 @@ import OptionsComponent from './OptionsComponent'
 import Color from '../../assets/Color'
 import Back from './Back';
 import Next from './Next';
-import NumberScreen from '../NumberScreen';
+
 
 const {width, height} = Dimensions.get('screen');
 
